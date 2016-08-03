@@ -1,0 +1,319 @@
+
+=================Introduction to R==================
+
+
+Here are the basics of R language. I will mention few more in another files, mean while go through the below and practise these commands.Thanks, Kranthi Kumar Yeldi
+
+
+
+========= R Console====================
+
+#Here are the Basic & Simple assignment and arithmetic operators
+
+1+2
+a = 2*2
+a
+
+#Two commnads seperated by semicolon
+
+15.3 * 5; 3 * (4 + 5)
+
+
+# Upon placing cursor next to the prompt sign,
+you can use up and down arrows to go back to
+previous commands.
+ 
+
+#While typing commands, use the horizontal arrows
+to move within the line.
+
+
+#Note:Everything on a line that is preceded by “#” is not interpreted by R.
+
+
+#creating a sequence with increments of 0.25 starting with -2
+and ending with 1
+
+seq(-2,1, by=0.10)  
+
+
+========= How to create Vectors and Matrices====================
+
+#create a vector a with specific values of 3, 4, and 5
+and access elements
+
+a <- c(3,4,5)      #creating vector with three elements
+a                  #display the entire vector
+a[2]               #display the second element
+
+
+#create a vector a with sequence
+a = seq(-2,1, by=0.10)  
+a
+
+
+#create a 10 by 1 vector of 1's
+
+b = rep(1, 10)
+b 
+ 
+
+#create a vector of numbers 1 to 20
+
+b = c(1:30)
+b
+
+
+#To create a 3 by 2 matrix B and access elements
+
+B = matrix(c(2, 4, 3, 1, 5, 7), nrow=3, ncol=2)
+B
+B[1,2]   #display element in first row second coloumn
+B[,1]    #display first coloumn
+
+
+===========Vector operations===========================
+
+
+a=c(1,2,3)
+a
+b=c(2,4,6)
+b
+a+b  #elementwise addition
+a*b  #elementwise multiplication
+a/b  #elementwise division
+a*5  #multiply all elements by 5
+
+
+length(a)    #number of elements
+sum(a)       #sum of all elements 
+mean(a)      #mean of elements
+c=c(1,5,9)
+sd(c)        #standard deviation of element
+
+
+===========vectorized calculations=======================
+
+#The apply command is often the most efficient way to do 
+vectorized calculations. 
+
+B = matrix(c(2, 4, 3, 1, 5, 7), nrow=3, ncol=2)
+apply(B,2,mean)      #Here 2 says coloumn wise
+apply(B,1,mean)      #Here 1 says row wise
+apply(B,1,sd)
+
+
+
+=================Concantenation======================================================
+
+#You can concatenate by column or by row with cbind and rbind commands
+
+a<-c(3,4,5)
+b<-c(10,11,12)
+c<- cbind(a,b)
+c
+
+c<- rbind(a,b)
+c
+   
+
+#To obtain the dimension of a matrix
+
+dim(c)
+
+
+
+
+
+ 
+========================Data Frames=============================================
+
+#A data frame is used for storing data tables. It is a list of vectors of equal length.
+For example, the following variable df is a data frame containing three vectors n, s, b
+
+n = c(2, 3, 5) 
+s = c("aa", "bb", "cc") 
+b = c(TRUE, FALSE, TRUE) 
+
+df = data.frame(n, s, b)  
+df 
+
+nrow(df)
+ncol(df)
+colnames(df)
+
+df$n          #To acess coloumn named n
+df[1,2]       #accessing just like matrices
+names(df)<- c("Numbers", "Strings", "Boolean")  #To set the coloumn manes
+df
+
+==========================Reading and writing  Data=============================================
+
+
+#Reading in Data
+hmnrghts <- read.table("path")  #Give your file location here at path in " "
+
+
+#Remember you will have to specify the location of the file  depending on where you have it saved.
+After  reading in a data set, R will treat your data as a data frame.
+
+
+
+=============================== Logical Statements usage=========================================
+
+
+<       Less Than
+<=      Less Than or Equal To
+>       Greater Than
+>=      Greater Than or Equal To
+==      Equal To
+=       Not Equal To
+&       And
+|       Or
+
+
+
+
+
+
+==================================Factors==================================================== 
+
+Categorical variables in R can be given a special designation as factors.
+
+If you designate a categorical variable as a factor, R will treat it as such in statistical 
+
+operation and create dummy variables for each level  when it is used in a regression.
+
+If you import a variable with no numeric coding, R will automatically treat the variable as  a factor.
+
+
+Below are the codes for using For loop and While loop.
+
+
+
+# For loop
+
+#for (i in 1:10) {COMMANDS}
+
+store <- rep(1,1000)
+
+for (i in 1:1000){
+a <- rnorm(i)
+store[i] <- mean(a)
+}
+
+plot(store, type="o")
+
+
+#Write a program to print multiplication table for 12
+
+for (i in 1:20){
+ cat(i,"*",12,"=",i*12,"\n")
+}
+
+#Write a program to print 10th fibonanci number
+
+current = 1;
+previous = 1;
+for ( i in 3: 10)
+ {
+temp = current + previous
+previous = current
+current = temp
+ }
+ print(current)
+
+
+
+===================================while loop=================================================
+
+j <- 1
+
+while(j <= 1000){
+a <- rnorm(j)
+store[j] <- mean(a)
+j <- j + 1
+}
+plot(store, type="o")
+
+
+===================================Functions==================================================
+
+#Functions in R
+
+#myfunction <- function(arg1, arg2, ... ){statements,return(object)}
+
+
+mysum <- function(x) {return(x + x)}
+
+priceCalculator <- function(hours, pph=40){
+    net.price <- hours * pph
+    if(hours > 100) {
+      net.price <- net.price * 0.9
+    }
+    else {
+      net.price <- net.price * 0.8
+     }
+    return(round(net.price))
+}
+
+
+
+#Loading functions from  a file
+
+source("filename.r")
+
+#Write a function to calculate kth fibonanci number
+
+
+fibk <-function(k){
+if(k <3) return(1)
+current = 1;
+previous = 1;
+for ( i in 3: k)
+ {
+temp = current + previous
+previous = current
+current = temp
+ }
+return(current)
+}
+
+
+===================================Saving  and Loading R Data=================================
+save(store, file="dumData.Rdata")
+rm(store)
+ls()
+load("dumData.Rdata")
+ls()
+
+=====================================Import/Export via ODBC===================================
+library(RODBC)
+connection <- odbcConnect(dsn="servername",uid="userid",pwd="******")
+query <- "SELECT * FROM lib.table WHERE ..."
+myData <- sqlQuery(connection, query, errors=TRUE)
+odbcClose(connection)
+
+
+
+
+
+==============How to perfom Sampling task=========================  
+
+
+a <- rnorm(1,mean=10, sd=1)  # draw a scalar from the standard normal distribution
+ #pick 1 number from normal distribution where mean =10 and sd =1
+ #the example of philips bulb(100 days expiry, implies mean 100, standarad deviation is error rate it may range from 70 - 130 days so standarddeviation will be varied to get data between 70 - 130) 
+ 
+a
+
+
+#Create 10 by 10 matrix with elements from normal distribution
+
+b <- matrix(rnorm(100, mean=10, sd=2), nrow=10, ncol=10)
+
+
+#If you want to sample from a given object use the command sample. Suppose
+we want a sample of 10 ten numbers from b, our 10 by 10 matrix of random numbers
+
+sample(b,10)
